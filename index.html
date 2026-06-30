@@ -453,4 +453,54 @@
       <div class="info-card">
         <h3>Udemy Course Certificate</h3>
         <div class="ic-sub">Udemy</div>
-        <a class="ic-link" href="https://www.udemy
+        <a class="ic-link" href="https://www.udemy.com/certificate/UC-ee3c267c-7898-4253-8d1f-10c5f541567b/" target="_blank" rel="noopener">View credential ↗</a>
+      </div>
+
+      <div class="info-card">
+        <h3>Training Certificate</h3>
+        <div class="ic-sub">GoToTraining</div>
+        <a class="ic-link" href="https://attendee.gototraining.com/trainings/99108234726403329/attendees/teodor.valchev@inensia.com/certificates" target="_blank" rel="noopener">View credential ↗</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <div class="blob a" style="right:-80px; top:-80px;"></div>
+      <div class="blob b" style="left:-80px; bottom:-80px;"></div>
+      <h2>Let's build something.</h2>
+      <p>I'm open to new projects and opportunities. The fastest way to reach me is by email — or check out my code on GitHub.</p>
+      <div class="social-row">
+        <a class="btn btn-primary" href="mailto:teo.valxev@gmail.com">Email me</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/teodor-valchev/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn btn-ghost" href="https://github.com/teodor-valchev" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-ghost" href="assets/Teodor-Valchev-Resume.pdf" download>Résumé ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="yr"></span> Teodor Valchev · Built with HTML, CSS &amp; a bit of JavaScript.</div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const reveals = document.querySelectorAll('.reveal');
+  function showAll(){ reveals.forEach(el => el.classList.add('in')); }
+  if ('IntersectionObserver' in window) {
+    try {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      reveals.forEach(el => io.observe(el));
+      // Fallback: ensure everything is visible shortly after load no matter what
+      window.addEventListener('load', () => setTimeout(showAll, 1200));
+    } catch (err) { showAll(); }
+  } else { showAll(); }
+</script>
+</body>
+</html>
