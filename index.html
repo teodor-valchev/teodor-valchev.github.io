@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Teodor Valchev — Developer Portfolio</title>
+<meta name="description" content="Portfolio of Teodor Valchev, front-end / full-stack developer. Projects, skills, and contact." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a12;
+    --bg-2: #11111f;
+    --card: #16162a;
+    --text: #f2f2f7;
+    --muted: #9b9bb3;
+    --accent: #7c4dff;
+    --accent-2: #ff4d8d;
+    --accent-3: #00e0c6;
+    --border: #262640;
+    --grad: linear-gradient(120deg, #7c4dff 0%, #ff4d8d 55%, #ff8a3d 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    backdrop-filter: blur(12px);
+    background: rgba(10,10,18,0.6);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-family: 'Space Grotesk'; font-weight: 700; font-size: 1.15rem; }
+  .logo span { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { color: var(--muted); font-size: 0.92rem; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  @media (max-width: 640px){ .nav-links { display: none; } }
+
+  /* hero */
+  header.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 0 80px;
+    overflow: hidden;
+  }
+  .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.5; z-index: 0; }
+  .blob.a { width: 520px; height: 520px; background: #7c4dff; top: -120px; right: -100px; }
+  .blob.b { width: 420px; height: 420px; background: #ff4d8d; bottom: -120px; left: -120px; opacity: 0.35; }
+  .blob.c { width: 300px; height: 300px; background: #00e0c6; top: 40%; left: 50%; opacity: 0.2; }
+  .hero .wrap { position: relative; z-index: 2; }
+  .eyebrow {
+    display: inline-block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent-3);
+    border: 1px solid var(--border); border-radius: 999px; padding: 6px 16px; margin-bottom: 28px;
+    background: rgba(0,224,198,0.06);
+  }
+  .hero h1 { font-size: clamp(2.8rem, 8vw, 5.5rem); font-weight: 700; line-height: 1.02; }
+  .hero h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p.lead { font-size: clamp(1.05rem, 2.5vw, 1.35rem); color: var(--muted); max-width: 620px; margin: 28px 0 40px; }
+  .cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 0.98rem; padding: 14px 28px; border-radius: 14px;
+    transition: transform .15s ease, box-shadow .2s ease; cursor: pointer; border: none;
+  }
+  .btn-primary { background: var(--grad); color: #fff; box-shadow: 0 8px 30px rgba(124,77,255,0.35); }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(255,77,141,0.4); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+  /* sections */
+  section { padding: 100px 0; position: relative; }
+  .section-head { margin-bottom: 56px; }
+  .section-head .num { font-family: 'Space Grotesk'; color: var(--accent); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.1em; }
+  .section-head h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-top: 8px; }
+  .section-head p { color: var(--muted); max-width: 560px; margin-top: 14px; }
+
+  /* about */
+  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 760px){ .about-grid { grid-template-columns: 1fr; } }
+  .about-grid p { color: #cfcfe0; margin-bottom: 18px; font-size: 1.05rem; }
+  .skills-box { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 28px; }
+  .skills-box h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 18px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    font-size: 0.85rem; font-weight: 500; padding: 8px 14px; border-radius: 10px;
+    background: rgba(124,77,255,0.1); border: 1px solid rgba(124,77,255,0.25); color: #d8d2ff;
+  }
+
+  /* projects */
+  .projects { display: grid; gap: 32px; }
+  .project {
+    position: relative;
+    background: var(--card); border: 1px solid var(--border); border-radius: 22px;
+    padding: 40px; overflow: hidden;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .project::before {
+    content: ""; position: absolute; inset: 0; border-radius: 22px; padding: 1px;
+    background: var(--grad); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .25s;
+  }
+  .project:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+  .project:hover::before { opacity: 1; }
+  .project .ptag { font-family: 'Space Grotesk'; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-3); }
+  .project h3 { font-size: 1.7rem; font-weight: 700; margin: 10px 0 14px; }
+  .project p.desc { color: #cfcfe0; max-width: 720px; margin-bottom: 22px; }
+  .feat-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin-bottom: 24px; }
+  @media (max-width: 560px){ .feat-list { grid-template-columns: 1fr; } }
+  .feat-list li { list-style: none; color: var(--muted); font-size: 0.95rem; padding-left: 22px; position: relative; }
+  .feat-list li::before { content: "▹"; position: absolute; left: 0; color: var(--accent-2); }
+  .tech-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .tech { font-size: 0.78rem; font-weight: 600; color: var(--muted); border: 1px solid var(--border); padding: 5px 12px; border-radius: 8px; }
+  .plinks { display: flex; gap: 14px; flex-wrap: wrap; }
+  .plink { font-weight: 600; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 11px; border: 1px solid var(--border); transition: all .2s; }
+  .plink:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .plink.live { background: var(--grad); color: #fff; border: none; }
+  .plink.live:hover { color: #fff; opacity: 0.92; }
+
+  /* contact */
+  .contact-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 24px;
+    padding: 60px 40px; text-align: center; position: relative; overflow: hidden;
+  }
+  .contact-card .blob { opacity: 0.25; }
+  .contact-card h2 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; position: relative; z-index: 2; }
+  .contact-card p { color: var(--muted); max-width: 480px; margin: 16px auto 36px; position: relative; z-index: 2; }
+  .social-row { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2; }
+
+  footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+  /* screenshots */
+  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 28px; }
+  @media (max-width: 600px){ .shots { grid-template-columns: 1fr; } }
+  .shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #0d0d18; box-shadow: 0 12px 30px rgba(0,0,0,0.35); transition: transform .25s ease; }
+  .shot:hover { transform: translateY(-4px); }
+  .shot .bar { height: 30px; display: flex; align-items: center; gap: 7px; padding: 0 13px; background: #0d0d18; border-bottom: 1px solid var(--border); }
+  .shot .bar i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .shot .bar i:nth-child(1){ background: #ff5f57; }
+  .shot .bar i:nth-child(2){ background: #febc2e; }
+  .shot .bar i:nth-child(3){ background: #28c840; }
+  .shot img { width: 100%; display: block; }
+
+  /* timeline */
+  .timeline { position: relative; margin-left: 8px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2), transparent);
+  }
+  .t-item { position: relative; padding: 0 0 38px 38px; }
+  .t-item:last-child { padding-bottom: 0; }
+  .t-item::before {
+    content: ""; position: absolute; left: 0; top: 5px; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--bg); border: 3px solid var(--accent-2); box-shadow: 0 0 0 4px rgba(255,77,141,0.12);
+  }
+  .t-item .t-role { font-family: 'Space Grotesk'; font-size: 1.25rem; font-weight: 700; }
+  .t-item .t-company { color: var(--accent-3); font-weight: 600; font-size: 0.98rem; margin-top: 2px; }
+  .t-item .t-meta { color: var(--muted); font-size: 0.88rem; margin-top: 4px; }
+  .t-item p.t-desc { color: #cfcfe0; margin-top: 12px; font-size: 0.98rem; max-width: 720px; }
+  .t-item .t-skills { margin-top: 12px; font-size: 0.82rem; color: var(--muted); }
+  .t-group {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 26px 28px; margin-bottom: 38px;
+  }
+  .t-group > .t-grouphead { font-family: 'Space Grotesk'; font-weight: 700; font-size: 1.15rem; }
+  .t-group > .t-groupmeta { color: var(--muted); font-size: 0.85rem; margin: 2px 0 22px; }
+  .t-group .timeline { margin-top: 4px; }
+  .t-group .t-item .t-role { font-size: 1.08rem; }
+
+  /* cards grid (education / certs) */
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 680px){ .card-grid { grid-template-columns: 1fr; } }
+  .info-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 26px 28px;
+    transition: transform .2s ease, border-color .2s ease;
+  }
+  .info-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .info-card h3 { font-size: 1.15rem; font-weight: 700; }
+  .info-card .ic-sub { color: var(--accent-3); font-weight: 600; font-size: 0.95rem; margin-top: 4px; }
+  .info-card .ic-meta { color: var(--muted); font-size: 0.86rem; margin-top: 4px; }
+  .info-card .ic-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-weight: 600; font-size: 0.88rem; color: var(--accent); }
+  .info-card .ic-link:hover { color: var(--accent-2); }
+
+  /* reveal animation */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">TV<span>.</span></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="blob a"></div>
+  <div class="blob b"></div>
+  <div class="blob c"></div>
+  <div class="wrap">
+    <span class="eyebrow">Full-Stack Developer · JavaScript &amp; C#</span>
+    <h1>Hi, I'm Teodor.<br />I build <span class="grad">full-stack web apps.</span></h1>
+    <p class="lead">I craft web applications end to end — modern JavaScript and React on the front end, C#/.NET and Node back ends — from authentication flows to full CRUD experiences.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn btn-primary">View my work →</a>
+      <a href="assets/Teodor-Valchev-Resume.pdf" class="btn btn-ghost" download>Download CV ↓</a>
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="num">01 —</span>
+      <h2>About me</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div>
+        <p>I'm a full-stack developer working across JavaScript and C#. I enjoy turning ideas into clean, well-structured applications — from polished front-ends to the APIs and data models behind them.</p>
+        <p>My work spans vanilla JavaScript SPAs using lightweight libraries like lit-html and page.js, full React + TypeScript applications with routing and context, and back ends built with C#/.NET, Node, and NestJS over REST APIs and PostgreSQL. I care about readable code, reusable components, and a smooth user experience.</p>
+        <p>I'm always exploring new tools and patterns — and looking for opportunities to build things people actually use.</p>
+      </div>
+      <div class="skills-box">
+        <h3>Tech I work with</h3>
+        <div class="chips">
+          <span class="chip">JavaScript</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">C#</span>
+          <span class="chip">.NET</span>
+          <span class="chip">React</span>
+          <span class="chip">React Router</span>
+          <span class="chip">Node.js</span>
+          <span class="chip">NestJS</span>
+          <span class="chip">REST APIs</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">Java</span>
+          <span class="chip">Salesforce</span>
+          <span class="chip">lit-html</span>
+          <span class="chip">page.js</span>
+          <span class="chip">HTML5</span>
+          <span class="chip">CSS3</span>
+          <span class="chip">Bootstrap</span>
+          <span class="chip">Back4App / Parse</span>
+          <span class="chip">Git &amp; GitHub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" style="padding-top:40px;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="num">02 —</span>
+      <h2>Selected work</h2>
+      <p>A couple of projects that show how I structure apps end to end.</p>
+    </div>
+
+    <div class="projects">
+
+      <article class="project reveal">
+        <div class="shots">
+          <div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/pure-gym-classes.png" alt="Pure Gym — classes catalog" loading="lazy" /></div>
+          <div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/pure-gym-detail.png" alt="Pure Gym — class detail page" loading="lazy" /></div>
+        </div>
+        <span class="ptag">React · SPA</span>
+        <h3>Pure Gym</h3>
+        <p class="desc">A gym management web application built with React. Users can browse a catalog of gym classes, view detailed records, and — once authenticated — create, edit, and delete their own classes and comments. Built around React Router, context-based auth, and a REST API backend.</p>
+        <ul class="feat-list">
+          <li>Catalog &amp; detail views for gym classes</li>
+          <li>Full CRUD for authenticated users</li>
+          <li>Comments &amp; user interaction</li>
+          <li>Guest vs. authenticated user roles</li>
+          <li>Client-side routing &amp; auth guards</li>
+          <li>Custom hooks &amp; service layer</li>
+        </ul>
+        <div class="tech-row">
+          <span class="tech">React.js</span>
+          <span class="tech">React Router</span>
+          <span class="tech">Bootstrap</span>
+          <span class="tech">REST API</span>
+          <span class="tech">Node.js</span>
+        </div>
+        <div class="plinks">
+          <a class="plink live" href="https://deploy-react-pure-gym.web.app/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="plink" href="https://github.com/teodor-valchev/Pure-Gym" target="_blank" rel="noopener">Source code ↗</a>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <div class="shots">
+          <div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/quiz-fever-browser.png" alt="Quiz Fever — quiz browser" loading="lazy" /></div>
+          <div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/quiz-fever-detail.png" alt="Quiz Fever — quiz detail page" loading="lazy" /></div>
+        </div>
+        <span class="ptag">Vanilla JS · SPA</span>
+        <h3>Quiz Fever</h3>
+        <p class="desc">A modular single-page application for creating, browsing, solving, and managing interactive quizzes. Built with plain JavaScript using lit-html for templating and page.js for routing, and integrated with Back4App (Parse Server) for authentication, quiz storage, and solution tracking.</p>
+        <ul class="feat-list">
+          <li>Register / login with session persistence</li>
+          <li>Browse, search &amp; filter quizzes</li>
+          <li>Interactive question-by-question contest mode</li>
+          <li>Results summary &amp; wrong-answer review</li>
+          <li>Quiz editor — create &amp; manage questions</li>
+          <li>Public profile pages &amp; statistics</li>
+        </ul>
+        <div class="tech-row">
+          <span class="tech">JavaScript (ES Modules)</span>
+          <span class="tech">lit-html</span>
+          <span class="tech">page.js</span>
+          <span class="tech">Back4App / Parse</span>
+          <span class="tech">HTML5 &amp; CSS3</span>
+        </div>
+        <div class="plinks">
+          <a class="plink live" href="https://teodor-valchev.github.io/Quiz-Fever/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="plink" href="https://github.com/teodor-valchev/Quiz-Fever" target="_blank" rel="noopener">Source code ↗</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="num">03 —</span>
+      <h2>Experience</h2>
+      <p>Where I've worked and what I've built along the way.</p>
+    </div>
+
+    <div class="timeline reveal">
+
+      <div class="t-item">
+        <div class="t-role">Full Stack Engineer</div>
+        <div class="t-company">inensia · Full-time</div>
+        <div class="t-meta">Mar 2026 – Present · 4 mos · On-site</div>
+        <div class="t-skills">Skills: Full-Stack Development, JavaScript &amp; more</div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-role">Software Developer</div>
+        <div class="t-company">Future-proof Software · Part-time</div>
+        <div class="t-meta">Dec 2024 – Mar 2025 · 4 mos · Sofia, Bulgaria · Remote</div>
+        <p class="t-desc">Developed and maintained responsive web applications using React and TypeScript. Implemented RESTful APIs and backend logic with NestJS, and collaborated with designers and backend teams to ensure seamless integration and optimal UX. Optimized application performance, ensured code quality through reviews and testing, and worked with PostgreSQL for data modeling, queries, and performance tuning.</p>
+        <div class="t-skills">Skills: React.js, NestJS &amp; more</div>
+      </div>
+
+    </div>
+
+    <div class="t-group reveal">
+      <div class="t-grouphead">Merkle EMEA</div>
+      <div class="t-groupmeta">Full-time · 1 yr 8 mos</div>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-role">Software Engineer</div>
+          <div class="t-meta">Oct 2022 – Nov 2023 · 1 yr 2 mos · Sofia, Bulgaria · Remote</div>
+          <p class="t-desc">Specialized in Salesforce technology and JavaScript, contributing to the development of robust solutions through Salesforce customization and front-end development. Passionate about leveraging technology to drive innovation and collaborating across teams.</p>
+          <div class="t-skills">Skills: CSS, Front-End Development &amp; more</div>
+        </div>
+        <div class="t-item">
+          <div class="t-role">Software Engineer</div>
+          <div class="t-meta">Apr 2022 – Nov 2023 · 1 yr 8 mos · Bulgaria · Remote</div>
+          <div class="t-skills">Skills: Web Engineering, Software Design &amp; more</div>
+        </div>
+        <div class="t-item">
+          <div class="t-role">Intern</div>
+          <div class="t-meta">Apr 2022 – Oct 2022 · 7 mos · Sofia, Bulgaria</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="num">04 —</span>
+      <h2>Education</h2>
+    </div>
+    <div class="card-grid reveal">
+
+      <div class="info-card">
+        <h3>University of Plovdiv "Paisii Hilendarski"</h3>
+        <div class="ic-sub">Bachelor's degree · Informatics</div>
+        <div class="ic-meta">Sep 2022 – Jul 2026</div>
+        <p class="t-desc">Currently studying Informatics, building a strong foundation across software development and computer science.</p>
+        <div class="t-skills">Skills: C#, Java, Front-End &amp; Back-End Web Development &amp; more</div>
+      </div>
+
+      <div class="info-card">
+        <h3>Software University (SoftUni)</h3>
+        <div class="ic-sub">Computer Software Engineering</div>
+        <div class="ic-meta">Oct 2020 – Sep 2024</div>
+        <p class="t-desc">An academy focused on the fundamentals and advanced concepts of JavaScript and modern software engineering.</p>
+        <div class="t-skills">Skills: Software Development, Node.js &amp; more</div>
+      </div>
+
+      <div class="info-card">
+        <h3>Language School "Prof. Dr. Zlatarov"</h3>
+        <div class="ic-sub">Middle School Diploma · German Studies</div>
+        <div class="ic-meta">Sep 2015 – Sep 2019 · Grade: 4.95</div>
+        <p class="t-desc">Language-focused secondary education. Activities and societies: Volleyball, Table Tennis, Tennis.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="certifications" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="num">05 —</span>
+      <h2>Licenses &amp; certifications</h2>
+    </div>
+    <div class="card-grid reveal">
+
+      <div class="info-card">
+        <h3>Front-End Developer with JavaScript</h3>
+        <div class="ic-sub">SoftUni — Software University</div>
+        <a class="ic-link" href="https://softuni.bg/certificates/details/225849/89be3d5d" target="_blank" rel="noopener">View credential ↗</a>
+      </div>
+
+      <div class="info-card">
+        <h3>TryHackMe Certification</h3>
+        <div class="ic-sub">TryHackMe</div>
+        <a class="ic-link" href="https://assets.tryhackme.com/certification-certificate/6a1e80c6ee3463e89040e835.pdf" target="_blank" rel="noopener">View credential ↗</a>
+      </div>
+
+      <div class="info-card">
+        <h3>Udemy Course Certificate</h3>
+        <div class="ic-sub">Udemy</div>
+        <a class="ic-link" href="https://www.udemy.com/certificate/UC-ee3c267c-7898-4253-8d1f-10c5f541567b/" target="_bl
